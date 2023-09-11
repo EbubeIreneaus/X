@@ -46,7 +46,9 @@ a {
                         <b>{{ comment.profile.name }} </b>
                         <small> @{{ comment.profile.user.username }}</small>
                     </router-link>
-                    <button type="button" class="btn btn-outline-dark rounded-pill me-2" style="width:100px">follow</button>
+                    <button @click="toogleFollowing($event, comment.profile.id)" type="button"
+                        class="btn btn-outline-dark rounded-pill me-2" style="width:100px">
+                        {{ checkFollowing(comment.profile.followers) }}</button>
                 </div>
                 <article>
                     <p v-html="formatTweet(comment.tweet_txt)"></p>
@@ -95,7 +97,7 @@ const router = useRouter()
 const url = inject('xApi')
 const commentId = route.params.id
 const comment = ref(null)
-
+const { user, userId } = inject('user')
 
 const getSingleTweet = async () => {
     const response = await Axios.get(`${url}/tweet/getComment/${commentId}`)
@@ -111,6 +113,25 @@ const formatTweet = (tweet) => {
         return ""
     }
 
+}
+
+const toogleFollowing = async (e, id) => {
+    const response = await Axios.post(`${url}/user/toggleFollowing/`, {
+        personId: id,
+        userId: userId
+    })
+    if (response.data.status == "success") {
+        return response.data.code == 'follow' ? e.target.innerHTML = "Following" : e.target.innerHTML = "Follow"
+    }
+}
+
+const checkFollowing = (followersArray) => {
+    for (const follower of followersArray) {
+        if(follower.my_profile.user.id == userId){
+            return "Following"
+        }
+    }
+    return "Follow"
 }
 
 onMounted(() => {

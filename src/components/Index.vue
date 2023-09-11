@@ -12,7 +12,7 @@ textarea {
 .content {
     width: 50%;
     margin-left: 23%;
-
+    position: relative;
 }
 
 .active-comp {
@@ -34,7 +34,29 @@ ul li {
     border-radius: 50%;
 }
 
+.floating-btn {
+    position: fixed;
+    z-index: 9999999;
+    width: 70px;
+    height: 70px;
+    display: grid;
+    place-items: center;
+    background-color: rgb(139, 139, 196);
+    top: 85vh;
+    left: 75%;
+}
+.v-enter-active, .v-leave-active  {
+    transition: all .5s ease ;
+}
 
+
+.v-enter-from, .v-leave-to {
+    transform: scale(0);
+}
+
+.v-enter-to, .v-leave-from {
+    transform: scale(1);
+}
 
 @media screen and (max-width:992px) {
     .content {
@@ -55,6 +77,24 @@ ul li {
         <right-bar />
         <section class="content container_fluid p-2">
 
+          <Transition>
+            <div class="modal d-block bg-light" v-if="tweetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" @click="tweetModal = false"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <tweetarea :tweet-files="twtFiles"  @add-img-to-form="addImagesToForm" @post-success="tweeted"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+          </Transition>
+
             <div class="w-100 border pt-2 font-lg position-sticky top-0 " style="z-index: 9; background-color: white;">
 
                 <h5 class="ps-3">Home</h5>
@@ -63,13 +103,13 @@ ul li {
 
                     <ul class="nav justify-content-between ">
 
-                        <li class="nav-item ms-lg-5 mt-2  p-3 mb-1" :class="{ 'active-comp': activeComponent == ForYou }"
-                            @click="activeComponent = ForYou">
+                        <li class="nav-item ms-lg-5 m-2  px-3 py-2 mb-2" :class="{ 'active-comp': activeComponent == 'forYou' }"
+                            @click="activeComponent = 'forYou'">
                             <b>For you</b>
                         </li>
 
-                        <li class="nav-item me-lg-5 mt-2 p-3 mb-1" :class="{ 'active-comp': activeComponent == Following }"
-                            @click="activeComponent = Following">
+                        <li class="nav-item me-lg-5 m-2 px-3 py-2 mb-2 " :class="{ 'active-comp': activeComponent == 'following' }"
+                            @click="activeComponent = 'following'">
                             <b>Following</b>
                         </li>
 
@@ -79,19 +119,26 @@ ul li {
 
             </div>
             <!-- tweet area tag -->
-            <tweetarea />
+            <!-- <div class="d-lg-block d-none"> -->
+                <tweetarea :tweet-files="twtFiles" @add-img-to-form="addImagesToForm" @post-success="tweeted"/>
+            <!-- </div> -->
             <!-- tweet area tag -->
             <div>
-                <component :is='activeComponent' :profilepics="user.profilepics" :user="user"></component>
+                <component :is='comp' :profilepics="user.profilepics" :user="user"></component>
+            </div>
+            <div class="floating-btn btn d-lg-none rounded-circle" @click="tweetModal = !tweetModal">
+                <i class="fas fa-feather" ></i>
             </div>
         </section>
 
-      
+
+
+
     </main>
 </template>
 
 <script setup>
-import { ref, reactive, inject } from 'vue';
+import { ref, reactive, inject, computed } from 'vue';
 
 import Following from "./utils/Following.vue";
 
@@ -99,6 +146,7 @@ import ForYou from "./utils/ForYou.vue";
 
 import tweetarea from './utils/tweetarea.vue';
 
+const twtFiles = ref([])
 // import rightBar from './utils/rightBar.vue';
 import Axios from 'axios';
 
@@ -106,102 +154,35 @@ import Cookies from 'js-cookie';
 
 const user = inject('user')
 
-let tweet = ref(null)
+// let tweet = ref(null)
 
-let tweetImg = reactive([])
+let tweetModal = ref(false)
 
-let activeComponent = ref(ForYou)
-
-function addImagesToForm(e) {
-
-    const imageFiles = e.target.files
-
-    const array = []
-
-    let len = 0;
-
-    const promise = new Promise((resolve, reject) => {
-
-        for (const img of imageFiles) {
-
-            len += 1
-
-            if (len > 4) {
-
-                reject('only 4 images is allowed')
-
-            }
-            const reader = new FileReader()
-
-            reader.onload = function () {
-
-                array.push(reader.result)
-
-                if (array.length == imageFiles.length) {
-
-                    resolve(array)
-
-                }
-            }
-            if (img.type.match('image.*')) {
-
-                reader.readAsDataURL(img)
-
-            }
+let activeComponent = ref('forYou')
 
 
+const comp = computed(() =>{
+    return activeComponent.value == "forYou"?ForYou:Following
+})
+const tweeted = () =>{
+    twtFiles.value = []
+    tweetModal.value = false
+    location.reload()
+    alert("Tweeted Successful")
+}
+
+const addImagesToForm = (e) => {
+    if (e.target.files.length > 4) {
+        alert("Maximimun of four(4) files is allowed at a time")
+        return
+    }
+    twtFiles.value = []
+    const files = e.target.files
+    for (const file of files) {
+        if (twtFiles.value.length < 4) {
+            twtFiles.value.push(file)
         }
-    })
-    promise.then((success) => {
-        tweetImg = success
-    }, (error) => {
-        alert(error)
-    })
-
-
+    }
 }
 
-const postTweet = async (e) => {
-
-    const files = $refs.tweetImg.files
-
-    const form = new FormData()
-
-    let len = 0
-
-    form.append('images', files)
-
-    for (const img of files) {
-
-        len += 1
-
-        form.append('images', img)
-
-    }
-    form.append('tweet', tweet)
-
-    const headers = {
-
-        'Content-Type': 'multipart/form-data',
-
-        'userId': user.id
-
-    }
-    const response = await Axios.post(
-
-        'http://127.0.0.1:8000/home/postTweet/',
-        form, { headers }
-    )
-
-    if (response.data.status == 'success') {
-
-        tweet = ''
-        tweetImg = []
-
-    } else {
-
-        console.log(response.data);
-    }
-
-}
 </script>

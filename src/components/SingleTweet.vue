@@ -31,7 +31,9 @@ a{
 
 <template>
     <main>
-        <side-bar />
+        <div class="d-lg-block d-none">
+            <side-bar />
+        </div>
         <right-bar />
         <div class="content ">
 
@@ -57,9 +59,9 @@ a{
                             <small> @{{ tweet.profile.user.username }}</small>
 
                         </router-link>
-
-                        <button type="button" class="btn btn-outline-dark rounded-pill me-2"
-                            style="width:100px">follow</button>
+                        <button @click="toogleFollowing($event, tweet.profile.id)" type="button"
+                        class="btn btn-outline-dark rounded-pill me-2" style="width:100px">
+                        {{ checkFollowing(tweet.profile.followers) }}</button>
                     </div>
 
                     <article>
@@ -113,7 +115,24 @@ const format = (text) => {
     return text
    
 }
+const toogleFollowing = async (e, id) => {
+    const response = await Axios.post(`${url}/user/toggleFollowing/`, {
+        personId: id,
+        userId: userId
+    })
+    if (response.data.status == "success") {
+        return response.data.code == 'follow' ? e.target.innerHTML = "Following" : e.target.innerHTML = "Follow"
+    }
+}
 
+const checkFollowing = (followersArray) => {
+    for (const follower of followersArray) {
+        if(follower.my_profile.user.id == userId){
+            return "Following"
+        }
+    }
+    return "Follow"
+}
 
 
 onBeforeMount(() => {

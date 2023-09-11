@@ -22,7 +22,7 @@
                         </textarea>
 
             </div>
-            <div class="image-preview-sec d-flex flex-wrap">
+            <div class="image-preview-sec d-flex flex-wrap" v-if="tweetFiles">
 
                 <div class="m-2 border border-danger " v-for="(file, index ) in previewFile" :key="index">
 
@@ -42,7 +42,7 @@
 
                 <div class="ms-1">
                     
-                    <input type="file" name="" @change="addImagesToForm($event)" id="file-input" class="" multiple
+                    <input type="file" name="" @change="$emit('addImgToForm',$event)" id="file-input" class="" multiple
                         accept="image/*, video/*" hidden ref="tweetImg">
                     
                         <label for="file-input"><i class="fa-solid fa-image p-1 text-primary"></i></label>
@@ -66,7 +66,7 @@
 
 <script setup>
 
-import { ref, reactive, inject, onMounted, computed } from 'vue'
+import { ref, reactive, inject, onMounted, computed, watch } from 'vue'
 
 import Axios from 'axios'
 
@@ -75,22 +75,25 @@ import Cookies from 'js-cookie';
 const { user, userId } = inject('user')
 
 const url = inject("xApi")
-
-const tweetFiles = ref([])
-
+const emit = defineEmits(['postSuccess'])
+let props = defineProps({tweetFiles:Array})
+const tweetFiles = ref(props.tweetFiles)
 const tweet = ref(null)
 
 const prevArray = ref([])
 
-
+console.log(tweetFiles);
 const tweetBtn = computed(() => {
     return (tweet.value || tweetFiles.value.length > 0) ? false : true
 })
 
+watch(()=>props.tweetFiles, (newVal)=>{
+    tweetFiles.value = newVal
+})
+
 const previewFile = computed(() => {
-
+    console.log(tweetFiles);
     const files = tweetFiles.value
-
     prevArray.value = []
 
     for (const file of files) {
@@ -107,22 +110,10 @@ const previewFile = computed(() => {
     return prevArray.value;
 })
 
-const addImagesToForm = (e) => {
-    if (e.target.files.length > 4) {
-        alert("Maximimun of four(4) files is allowed at a time")
-        return
-    }
-    tweetFiles.value = []
-    const files = e.target.files
-    for (const file of files) {
-        if (tweetFiles.value.length < 4) {
-            tweetFiles.value.push(file)
-        }
-    }
-}
+
 
 const postTweet = async (e) => {
-
+    e.target.disabled = true
     const formData = new FormData()
 
     formData.append('tweet', tweet.value)
@@ -142,11 +133,9 @@ const postTweet = async (e) => {
         headers: headers
     })
     if(res.data.status == 'success'){
-
+        e.target.disabled = tfalse
         tweet.value = ''
-        tweetFiles.value = []
-
-        alert('Tweeted Successfully')
+      emit('postSuccess')
         
     }else{
 

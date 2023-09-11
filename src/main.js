@@ -9,6 +9,8 @@ import Rightbar from './components/utils/rightBar.vue'
 import SingleTweet from './components/SingleTweet.vue'
 import singleComment from './components/singleComment.vue';
 import GSignInButton from 'vue-google-signin-button'
+import profile from './components/profile.vue';
+import tweetArea from './components/utils/tweetarea.vue'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -19,7 +21,9 @@ const router = createRouter({
         {path:'/home', component: Index},
         {path:'/auth', component: Auth},
         {path:"/tweet/:id", component: SingleTweet},
-        {path:"/comment/:id", component : singleComment}
+        {path:"/comment/:id", component : singleComment},
+        {path:"/profile/", component:profile} ,
+        {path:"/profile/ss", component:tweetArea} 
     ]
     })
 

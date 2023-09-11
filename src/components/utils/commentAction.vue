@@ -73,7 +73,7 @@ textarea {
             <small>{{ comment.likes.length }}</small>
         </p>
 
-        <p> <i class="fa-solid fa-retweet btn"></i> <small>12</small></p>
+        <p> <i class="fa-solid fa-retweet btn"></i> <small>0</small></p>
 
         <p><i class="fa fa-chart-bar "></i> <small></small></p>
 

@@ -20,6 +20,8 @@ video {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    object-position: center;
+    filter: contrast(170%);
 }
 
 .profile-pics {
@@ -74,7 +76,7 @@ textarea {
                 :style="{ color: checkLiked(tweet.likes) }"></i> <small>{{ tweet.likes.length
                 }}</small></p>
 
-        <p> <i class="fa-solid fa-retweet btn"></i> <small>12</small></p>
+        <p> <i class="fa-solid fa-retweet btn"></i> <small>0</small></p>
 
         <p><i class="fa fa-chart-bar "></i> <small>{{ tweet.views }}</small></p>
 

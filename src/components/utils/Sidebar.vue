@@ -28,25 +28,30 @@ ul li a.router-link-active {
     width: 50px;
     border-radius: 50%;
 }
-.acct-bottom .txt-info{
- overflow: hidden;
- display: -webkit-box;
- -webkit-box-orient: vertical;
- -webkit-line-clamp: 1;
- text-overflow: ellipsis;
- text-align: left;
-font-family: Arial, Helvetica, sans-serif;
+
+.acct-bottom .txt-info {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
 }
-::-webkit-scrollbar{
-    width:7px;
+
+::-webkit-scrollbar {
+    width: 7px;
 }
-::-webkit-scrollbar-track{
+
+::-webkit-scrollbar-track {
     background-color: white;
 }
-::-webkit-scrollbar-thumb{
-background-color: whitesmoke;
-border-radius: 40px;
+
+::-webkit-scrollbar-thumb {
+    background-color: whitesmoke;
+    border-radius: 40px;
 }
+
 @media screen and (max-width:992px) {
     .offcanvas {
         width: 80%;
@@ -78,7 +83,7 @@ border-radius: 40px;
             <i class="fa-brands fa-twitter p-2 text-primary offcanvas-title" style="font-size: 30px;"></i>
 
             <button type="button" class="btn-close text-reset d-lg-none" @click="showOffcanvas = false"></button>
-       
+
         </div>
 
         <ul class="list-group mt-2 offcanvas-body ms-3">
@@ -86,7 +91,7 @@ border-radius: 40px;
                 <router-link to="/home" class="rounded-pill btn p-2"><i class="fa-solid fa-home me-3"></i>Home</router-link>
             </li>
             <li>
-                <a href="#" class="rounded-pill btn p-2" disabled><i class="fa-solid fa-search me-3"></i>Explore</a>
+                <router-link to="/profile/" class="rounded-pill btn p-2"><i class="fa-solid fa-user me-3"></i>Profile</router-link>
             </li>
             <li>
                 <a href="#" class="rounded-pill btn p-2"><i class="fa-solid fa-bell me-3"></i>Notifications</a>
@@ -108,12 +113,12 @@ border-radius: 40px;
                         class="fa-solid fa-user me-3"></i>Logout</router-link>
             </li>
             <li>
-                <a href="#" class="rounded-pill btn p-2 btn btn-primary w-100"> Tweet </a>
+                <a href="l" class="rounded-pill btn p-2 btn btn-primary w-100"> Tweet </a>
             </li>
 
             <li>
 
-                <a href="#" class="rounded-pill btn  w-100 acct-bottom">
+                <router-link :to="`/profile/`" class="rounded-pill btn  w-100 acct-bottom">
 
                     <div class="row align-items-center rounded-pill">
 
@@ -122,14 +127,14 @@ border-radius: 40px;
                         <div class="col-9">
 
                             <b class="float-start w-100 txt-info">
-                                <small>{{ user.name}}</small>
+                                <small>{{ user.name }}</small>
                             </b>
 
                             <small class="float-start txt-info" style="height:30px;overflow: hidden;">
-                            @{{ user.username }}</small>
+                                @{{ user.username }}</small>
                         </div>
                     </div>
-                </a>
+                </router-link>
 
             </li>
         </ul>
@@ -142,7 +147,7 @@ import { ref, onMounted, inject } from 'vue'
 
 let showOffcanvas = ref()
 
-let {user} = inject('user')
+let { user, userId } = inject('user')
 
 const url = inject('xApi')
 
