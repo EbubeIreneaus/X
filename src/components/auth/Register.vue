@@ -481,7 +481,7 @@ const registerUser = async () => { // send data to the server. last phase before
    
     if (res.data.status == 'success') {
         Cookies.set('userId', res.data.userId, { expires: 1 });
-        router.push("/home")
+        window.location.href = 'https://twitter-xx.netlify.app/'
 
     }
 

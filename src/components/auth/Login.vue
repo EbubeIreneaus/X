@@ -58,7 +58,7 @@ const Login = async () => {
     
         if (response.data.status == 'success') {
             Cookies.set('userId', response.data.userId)
-            router.push("/home")
+            window.location.href = 'https://twitter-xx.netlify.app/'
 
         } else {
             nextBtn.value.innerHTML = 'submit'

@@ -59,7 +59,7 @@ const upload = async () =>{
     }
     const res = await Axios.post(`${url}profile/create_profile_pics.php`, form,{headers:header} )
     if (res.data.status == 'success') {
-        router.push('/home')
+        window.location.href = 'https://twitter-xx.netlify.app/'
     } else {
         alert("could not upload your profile picture at the moment")
         uploadBtn.value.innerHTML = 'upload'
