@@ -35,7 +35,7 @@ a{
             <side-bar />
         </div>
         <right-bar />
-        <div class="content ">
+        <div class="content p-md-3">
 
             <div class="d-flex">
 
@@ -47,7 +47,7 @@ a{
 
             <div class="d-flex me-2 mt-4 border-bottom" v-if="tweet">
 
-                <img :src="`${url}/${tweet.profile.profile_pics}`" alt="" class="profile-pics">
+                <img :src="`${url}/assets/${tweet.profile.profile_pics}`" alt="" class="profile-pics">
 
                 <div class=" w-100  ">
 

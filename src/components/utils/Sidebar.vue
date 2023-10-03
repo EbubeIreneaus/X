@@ -64,7 +64,7 @@ ul li a.router-link-active {
 
         <div class="col-3">
 
-            <img :src="`${url}/${user.pics}`" @click="showOffcanvas = !showOffcanvas" alt="preson"
+            <img :src="`${url}/assets/${user.pics}`" @click="showOffcanvas = !showOffcanvas" alt="preson"
                 class=" ms-3  sidebar-img">
 
         </div>
@@ -122,7 +122,7 @@ ul li a.router-link-active {
 
                     <div class="row align-items-center rounded-pill">
 
-                        <div class="col-3 "><img :src="`${url}/${user.pics}`"
+                        <div class="col-3 "><img :src="`${url}/assets/${user.pics}`"
                                 style="width:50px;height: 50px; border-radius: 50%;"></div>
                         <div class="col-9">
 

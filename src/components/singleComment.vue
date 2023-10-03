@@ -39,7 +39,7 @@ a {
         </div>
 
         <div class="d-flex me-2 mt-3 border-bottom" v-if="comment">
-            <img :src="url + comment.profile.profile_pics" alt="" class="profile-pics">
+            <img :src="url + '/assets/' +comment.profile.profile_pics" alt="" class="profile-pics">
             <div class=" w-100  ">
                 <div class="d-flex align-items-center justify-content-between mb-3 pb-2">
                     <router-link :to="'profile/'" class=" ms-2">

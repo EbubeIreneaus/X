@@ -23,14 +23,14 @@ const router = createRouter({
         {path:"/tweet/:id", component: SingleTweet},
         {path:"/comment/:id", component : singleComment},
         {path:"/profile/", component:profile} ,
-        {path:"/profile/ss", component:tweetArea} 
+        // {path:"/profile/ss", component:tweetArea} 
     ]
     })
 
 const app = createApp(App)
 app.component('side-bar', Sidebar)
 app.component('right-bar', Rightbar)
-app.provide('xApi', ' http://127.0.0.1:8000/')
+app.provide('xApi', 'https://x-bend.up.railway.app')
 app.use(router)
 app.use(GSignInButton)
 app.mount('#app')

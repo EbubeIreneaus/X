@@ -55,14 +55,12 @@ textarea {
 </style>
 
 <template>
-    <div class="images w-100 p-1 ">
+    <div class="images w-100 p-1 " v-if="tweet.media.length>0">
 
         <div class="img-con " :class="getImageClass(tweet.media.length, index)" v-for="(media, index) in tweet.media"
             :key="index">
 
-            <img :src="`${url}/${media.file}`" class="r" alt="" v-if="media.type == 'img'">
-
-            <video :src="`${url}/${media.file}`" controls v-else> </video>
+            <img :src="`${url}/assets/${media.file}`" class="r" alt="" v-if="media.type == 'img'">
 
         </div>
     </div>
@@ -105,7 +103,7 @@ textarea {
 
                         <div class=" mt-2">
 
-                            <img :src="url + tweet_to_comment.profileics" alt="" class="profile-pics" />
+                            <img :src="`${url}/assets/${tweet_to_comment.profileics}`" alt="" class="profile-pics" />
 
                         </div>
 
@@ -136,7 +134,7 @@ textarea {
 
                         <div class="col-1">
 
-                            <img :src="url + '/' + user.pics" alt="" class="profile-pics">
+                            <img :src="url + '/assets/' + user.pics" alt="" class="profile-pics">
 
                         </div>
 
@@ -251,7 +249,7 @@ const imgArrays = computed(() => {
             imgUrls.value.push(reader.result)
         }
 
-        if (file.type.match("image.*/") || file.type.match('video.*/')) {
+        if (file.type.match("image.*/")) {
 
             reader.readAsDataURL(file)
 
@@ -378,7 +376,7 @@ const postComment = async (e) => {
         "Content-Type": 'multipart/form-data',
         'userId': userId
     }
-    const response = await Axios.post('http://127.0.0.1:8000/tweet/replyTweet/', form, { headers })
+    const response = await Axios.post(`${url}/tweet/replyTweet/`, form, { headers })
 
     if (response.data.status == 'success') {
         commentNo.value.innerHTML = parseInt(commentNo.value.innerHTML) + 1

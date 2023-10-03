@@ -4,7 +4,7 @@
 
         <div class="col-1 d-none d-lg-inline">
 
-            <img :src="`${url}/${user.pics}`" alt="" class="profile-pics">
+            <img :src="`${url}/assets/${user.pics}`" alt="" class="profile-pics">
 
         </div>
         <div class="col ">
@@ -28,8 +28,7 @@
 
                     <img v-if="file.startsWith('data:image/')" :src="file" alt="" style="width:100%; height:100%">
 
-                    <video v-else-if="file.startsWith('data:video/')" :src="file" alt=""
-                        style="width:100%; height:100%"></video>
+                
 
                     <i @click="tweetFiles.splice(index, 1)" class="fa-solid fa-trash text-danger"
                         style="position: absolute;top:5px;right: 5px;"></i>
@@ -43,7 +42,7 @@
                 <div class="ms-1">
                     
                     <input type="file" name="" @change="$emit('addImgToForm',$event)" id="file-input" class="" multiple
-                        accept="image/*, video/*" hidden ref="tweetImg">
+                        accept="image/*" hidden ref="tweetImg">
                     
                         <label for="file-input"><i class="fa-solid fa-image p-1 text-primary"></i></label>
 
@@ -128,12 +127,12 @@ const postTweet = async (e) => {
         'userId': userId
     };
 
-    const res = await Axios.post(`${url}tweet/`, formData, {
+    const res = await Axios.post(`${url}/tweet/`, formData, {
 
         headers: headers
     })
     if(res.data.status == 'success'){
-        e.target.disabled = tfalse
+        e.target.disabled = false
         tweet.value = ''
       emit('postSuccess')
         

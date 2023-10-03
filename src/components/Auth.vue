@@ -62,6 +62,22 @@ h1, h4{
     .main{
         justify-content: center !important;
     }
+    /* .x-logo{
+    height: 100px;
+    display: flex;
+    justify-content: left;
+    align-items: center !important;
+
+    
+}
+.x-logo img{
+    width: 50px;
+    margin-left: 15%;
+} */
+}
+
+@media screen and (max-width:465px){
+
     .x-logo{
     height: 100px;
     display: flex;
@@ -80,11 +96,11 @@ h1, h4{
 <template>
     <main>
         <!-- main page logic -->
-      <div class="row">
-        <div class="col-lg-6 col-12 x-logo ">
+      <div class="row ">
+        <div class="col-md-6 col-12 x-logo ">
             <img src="../../public/x-logo-light.png" alt="">
         </div >
-        <div class="col-lg-6 col-12 d-flex align-items-center mx-auto">
+        <div class="col-md-6 col-12 d-flex align-items-center mx-auto">
             <div class="  p-2 ps-5 ps-lg-2" style="min-height:80vh;">
                 <h1 class="my-3 mb-5">Happening now</h1>
                 <h4 class="my-4">Join today.</h4>

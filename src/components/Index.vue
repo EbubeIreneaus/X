@@ -75,7 +75,7 @@ ul li {
     <main class="">
         <side-bar />
         <right-bar />
-        <section class="content container_fluid p-2">
+        <section class="content container_fluid p-lg-2 p-md-5 p-2">
 
           <Transition>
             <div class="modal d-block bg-light" v-if="tweetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -172,8 +172,8 @@ const tweeted = () =>{
 }
 
 const addImagesToForm = (e) => {
-    if (e.target.files.length > 4) {
-        alert("Maximimun of four(4) files is allowed at a time")
+    if (e.target.files.length > 3) {
+        alert("Maximimun of Three(3) files is allowed at a time")
         return
     }
     twtFiles.value = []

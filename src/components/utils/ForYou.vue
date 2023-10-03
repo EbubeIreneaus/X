@@ -37,7 +37,7 @@ a {
 
                 <div class=" mt-2 d-flex gap-1">
 
-                    <img :src="`${url}/${tweet.profile.profile_pics}`" alt="" class="profile-pics" />
+                    <img :src="`${url}/assets/${tweet.profile.profile_pics}`" alt="" class="profile-pics" />
 
                     <router-link to="">
                         <p class="mt-2">

@@ -42,7 +42,7 @@ a {
 
                 <div class=" mt-2 d-flex gap-1">
 
-                    <img :src="`${url}/${comment.profile.profile_pics}`" alt="" class="profile-pics" />
+                    <img :src="`${url}/assets/${comment.profile.profile_pics}`" alt="" class="profile-pics" />
 
                     <router-link to="">
                         <p class="mt-2">
@@ -65,9 +65,9 @@ a {
                             <div class="img-con " :class="getImageClass(comment.media.length, index)"
                                 v-for="(media, index) in comment.media" :key="index">
 
-                                <img :src="`${url}/${media.file}`" class="r" alt="" v-if="media.type == 'img'">
+                                <img :src="`${url}/assets/${media.file}`" class="r" alt="" v-if="media.type == 'img'">
 
-                                <video :src="`${url}/${media.file}`" controls v-else> </video>
+                                <video :src="`${url}/assets/${media.file}`" controls v-else> </video>
 
                             </div>
                         </div>

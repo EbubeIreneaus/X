@@ -93,7 +93,7 @@ textarea {
                     <!--  tweet to comment -->
                     <div class="d-flex mb-3 ">
                         <div class=" mt-2">
-                            <img :src="`${url}/${comment_to_reply.profileics}`" alt="" class="profile-pics" />
+                            <img :src="`${url}/assets/${comment_to_reply.profileics}`" alt="" class="profile-pics" />
                         </div>
                         <div class=" w-100 p-2 ms-1">
                             <div>
@@ -112,7 +112,7 @@ textarea {
                     <!-- your comment -->
                     <div class="tweet-sec row mt-2 border-bottom pb-2">
                         <div class="col-1">
-                            <img :src="`${url}/${user.pics}`" alt="" class="profile-pics">
+                            <img :src="`${url}/assets/${user.pics}`" alt="" class="profile-pics">
                         </div>
                         <div class="col ms-3">
                             <div class="dropdown">
@@ -130,9 +130,6 @@ textarea {
                                     <img v-if="file.startsWith('data:image/')" :src="file" alt=""
                                         style="width:100%; height:100%">
 
-                                    <video v-else-if="file.startsWith('data:video/')" :src="file" alt=""
-                                        style="width:100%; height:100%"></video>
-
                                     <i @click="tweetImage.splice(index, 1)" class="fa-solid fa-trash text-danger"
                                         style="position: absolute;top:5px;right: 5px;"></i>
 
@@ -145,7 +142,7 @@ textarea {
                                 <div class="ms-1">
 
                                     <input type="file" name="" @change="addImagesToTweet($event)" id="replyImg" class=""
-                                        multiple accept="image/*, video/*" hidden ref="tweetImg">
+                                        multiple accept="image/*" hidden ref="tweetImg">
 
                                     <label for="replyImg"><i class="fa-solid fa-image p-1 text-primary"></i></label>
 
@@ -209,7 +206,7 @@ const imgArrays = computed(() => {
         reader.onload = () => {
             imgUrls.value.push(reader.result)
         }
-        if (img.type.match("image.*/") || img.type.match("video.*/")) {
+        if (img.type.match("image.*/")) {
             reader.readAsDataURL(img)
         }
     }

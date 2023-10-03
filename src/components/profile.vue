@@ -131,7 +131,7 @@ section[class^="two"] p:nth-child(3) {
             <section class="one">
                 <div class="profile-img-sec border">
                     <div class="d-flex justify-content-between align-items-end w-100">
-                        <img :src="`${url}/${profile.profile_pics}`" alt="" class="align-self-center">
+                        <img :src="`${url}/assets/${profile.profile_pics}`" alt="" class="align-self-center">
 
                         <button type="button" class="btn border px-4 me-2 py-1 rounded-pill mb-4">Edit Profile</button>
                     </div>
@@ -177,7 +177,7 @@ section[class^="two"] p:nth-child(3) {
 
                                         <div class=" mt-2 d-flex gap-1">
 
-                                            <img :src="`${url}/${tweet.profile.profile_pics}`" alt=""
+                                            <img :src="`${url}/assets/${tweet.profile.profile_pics}`" alt=""
                                                 class="profile-pics" />
 
                                             <router-link to="">
@@ -216,7 +216,7 @@ section[class^="two"] p:nth-child(3) {
 
                                         <div class=" mt-2 d-flex gap-1">
 
-                                            <img :src="`${url}/${tweet.profile.profile_pics}`" alt=""
+                                            <img :src="`${url}/assets/${tweet.profile.profile_pics}`" alt=""
                                                 class="profile-pics" />
 
                                             <router-link to="">
@@ -258,7 +258,7 @@ section[class^="two"] p:nth-child(3) {
     
                                             <div class=" mt-2 d-flex gap-1">
     
-                                                <img :src="`${url}/${tweet.profile.profile_pics}`" alt=""
+                                                <img :src="`${url}/assets/${tweet.profile.profile_pics}`" alt=""
                                                     class="profile-pics" />
     
                                                 <router-link to="">

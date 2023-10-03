@@ -7,6 +7,8 @@
 
 <script setup>
 import { ref, reactive, onMounted, inject, provide  } from 'vue'
+import {useRouter } from 'vue-router'
+const router = useRouter()
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 const url = inject("xApi")
@@ -29,7 +31,7 @@ const url = inject("xApi")
     onMounted(() => {
         
         if (userId == null) {
-            // this.$router.push('/auth/login')
+            router.push('/auth')
         } else {
            getUser()
         }
