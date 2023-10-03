@@ -8,7 +8,6 @@ import Sidebar from './components/utils/Sidebar.vue'
 import Rightbar from './components/utils/rightBar.vue'
 import SingleTweet from './components/SingleTweet.vue'
 import singleComment from './components/singleComment.vue';
-import GSignInButton from 'vue-google-signin-button'
 import profile from './components/profile.vue';
 import tweetArea from './components/utils/tweetarea.vue'
 
