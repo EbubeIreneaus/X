@@ -122,9 +122,9 @@ h1, h4{
 
       <!-- modal logic -->
       <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-      <div class="modal" :class="{'d-block':comp != null}" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+      <div class="modal bg-light" :class="{'d-block':comp != null}" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scroll modal-md" role="document">
-            <div class="modal-content " style="height: 85vh; ">
+            <div class="modal-content " style="min-height: 85vh; ">
                 <div class="modal-body ">
 
                    <Transition>
